@@ -1,29 +1,33 @@
-import {
-  Image,
-  Header,
-  Container,
-  Group,
-  Anchor,
-  Button,
-  Text,
-} from "@mantine/core";
+import Image from "next/image";
 import React from "react";
 
-export default function Main() {
+const navLinks = ["About", "Experience", "Projects", "Contact"];
+
+export default function Header() {
   return (
-    <Header py="md">
-      <Container size="xl">
-        <Group position="apart">
-          <Image src="/logo.svg" width={60} alt="RDJ" />
-          <Group spacing="xl">
-            <Anchor color="gray">0. About</Anchor>
-            <Anchor color="gray">1. Experience</Anchor>
-            <Anchor color="gray">2. Portfolio</Anchor>
-            <Anchor color="gray">3. Contact</Anchor>
-            <Button variant="outline">Resume</Button>
-          </Group>
-        </Group>
-      </Container>
-    </Header>
+    <nav className="fixed top-0 left-0 right-0 backdrop-blur-lg py-8">
+      <div className="flex justify-between items-center text-sm container mx-auto ">
+        <Image src="/logo.svg" width={60} height={20} alt="RDJ" />
+        <div className="flex items-center gap-x-7 font-mono">
+          {navLinks.map((content, i) => (
+            <NavLink content={content} index={i} />
+          ))}
+          <button className="px-4 py-2 rounded-md border-sky-400 text-sky-400 border hover:bg-sky-900/25 font-sans">
+            Resume
+          </button>
+        </div>
+      </div>
+    </nav>
   );
 }
+
+const NavLink = ({ index, content }) => (
+  <a
+    key={index}
+    href={`#${content.toLowerCase()}`}
+    class="text-slate-400 cursor-pointer hover:text-slate-200"
+  >
+    <span className="text-sky-400">{index}. </span>
+    {content}
+  </a>
+);

@@ -1,5 +1,5 @@
-import { AppShell, MantineProvider } from "@mantine/core";
 import Head from "next/head";
+import "../styles/globals.css";
 import Header from "../components/Header";
 
 function MyApp({ Component, pageProps }) {
@@ -13,17 +13,13 @@ function MyApp({ Component, pageProps }) {
         />
       </Head>
 
-      <MantineProvider
-        theme={{
-          colorScheme: "dark",
-        }}
-        withGlobalStyles
-        withNormalizeCSS
+      <div
+        className="text-white min-h-screen"
+        style={{ backgroundColor: "#000C13" }}
       >
-        <AppShell header={<Header />}>
-          <Component {...pageProps} />
-        </AppShell>
-      </MantineProvider>
+        <Header />
+        <Component {...pageProps} />
+      </div>
     </>
   );
 }
