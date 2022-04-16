@@ -25,7 +25,7 @@ export default function Header() {
       } z-10`}
     >
       <div className="flex justify-between items-center text-sm container mx-auto ">
-        <a href="/">
+        <a href="#">
           <Image src="/logo.svg" width={60} height={20} alt="RDJ" />
         </a>
         <div className="flex items-center gap-x-7 font-mono">

@@ -196,6 +196,7 @@ export default function Home({ workExperience, projects }) {
                 {workExperience.map((experience, i) => (
                   <Tabs.Trigger
                     value={i}
+                    key={experience._id}
                     className={`transition py-3 w-20 ${
                       activeTab != i && "opacity-75"
                     }`}
@@ -264,12 +265,20 @@ export default function Home({ workExperience, projects }) {
                   </h3>
                   <div className="flex gap-x-3 text-slate-600 text-2xl">
                     {project.demo_url && (
-                      <a target="_blank" href={project.demo_url}>
+                      <a
+                        target="_blank"
+                        href={project.demo_url}
+                        rel="noreferrer"
+                      >
                         <FiExternalLink className="hover:text-slate-500 " />
                       </a>
                     )}
                     {project.source_url && (
-                      <a target="_blank" href={project.source_url}>
+                      <a
+                        target="_blank"
+                        href={project.source_url}
+                        rel="noreferrer"
+                      >
                         <FaGithub className="hover:text-slate-500 " />
                       </a>
                     )}
