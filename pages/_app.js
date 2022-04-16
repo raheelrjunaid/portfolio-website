@@ -1,6 +1,7 @@
 import Head from "next/head";
 import "../styles/globals.css";
 import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -11,14 +12,14 @@ function MyApp({ Component, pageProps }) {
           name="viewport"
           content="minimum-scale=1, initial-scale=1, width=device-width"
         />
+        <link rel="icon" href="/logo.svg" />
       </Head>
 
-      <div
-        className="text-white min-h-screen"
-        style={{ backgroundColor: "#000C13" }}
-      >
+      {/* <AnimatedCursor color="14, 165, 233" /> */}
+      <div className="text-white min-h-screen bg-[#000C13]">
         <Header />
         <Component {...pageProps} />
+        <Footer />
       </div>
     </>
   );
