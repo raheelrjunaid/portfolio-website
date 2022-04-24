@@ -23,7 +23,7 @@ export default function Header() {
     <nav
       className={`fixed top-0 left-0 right-0 backdrop-blur-lg transition-all bg-[#000C13]/50 ${
         typeof window !== "undefined" && scrollPosition > 100 ? "py-4" : "py-8"
-      } z-10`}
+      } z-50`}
     >
       <div className="flex justify-between items-center text-sm container mx-auto ">
         <a href="#">

@@ -80,7 +80,7 @@ export default function Home({ workExperience, projects }) {
       <section className="h-screen pt-20 flex items-center">
         <div className="container xl:px-40">
           <p className="text-sky-400 font-mono mb-2">Hi! My name is</p>
-          <h1 className="text-5xl lg:text-6xl font-bold leading-tight">
+          <h1 className="font-bold leading-tight">
             Raheel Junaid
             <br />
             <span className="text-slate-200">I build online experiences.</span>
@@ -92,7 +92,7 @@ export default function Home({ workExperience, projects }) {
           </p>
           <div className="flex gap-x-4 items-center">
             <a href="#projects">
-              <button className="transition bg-sky-600 shadow-none hover:shadow-sky-500/25 text-lg px-5 py-2 border-sky-700 hover:shadow-lg hover:bg-sky-500 rounded-lg">
+              <button className="transition bg-sky-600 shadow-none hover:shadow-sky-500/25 text-md lg:text-lg px-5 py-2 border-sky-700 hover:shadow-lg hover:bg-sky-500 rounded-lg">
                 Projects
               </button>
             </a>
@@ -101,24 +101,23 @@ export default function Home({ workExperience, projects }) {
       </section>
       <section className="pb-20" id="about">
         <div className="container">
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-y-20 md:gap-x-20 xl:px-40">
+          <div className="grid grid-cols-1 md:grid-cols-5 md:gap-x-20 xl:px-40">
             <div className="md:col-span-2">
-              <div className="max-w-sm mx-auto md:ml-auto">
+              <div className="max-w-sm mx-auto md:ml-auto relative translate-y-20 md:translate-y-0 md:shadow-xl">
+                <div className="absolute inset-0 bg-gradient-to-t via-transparent from-[#000C13] z-10 md:hidden" />
                 <Image
                   alt="Self Portrait"
                   className="rounded-xl"
-                  width={336}
-                  height={420}
+                  width={984}
+                  height={1422}
                   layout="responsive"
-                  src="/self-portrait.jpeg"
+                  src="/self-portrait.png"
                 />
               </div>
             </div>
-            <div className="flex flex-col col-span-3 justify-center">
-              <h2 className="text-4xl font-semibold">
-                <span className="text-sky-500 text-3xl font-medium font-mono">
-                  0.{" "}
-                </span>
+            <div className="flex flex-col col-span-3 justify-center z-20">
+              <h2 className="font-semibold">
+                <span className="text-sky-500 font-medium font-mono">0. </span>
                 About me
               </h2>
               <p className="my-8 text-slate-400 leading-relaxed">
@@ -182,10 +181,8 @@ export default function Home({ workExperience, projects }) {
           }}
         />
         <div className="container text-center">
-          <h2 className="text-4xl font-semibold">
-            <span className="text-sky-500 text-3xl font-medium font-mono">
-              1.{" "}
-            </span>
+          <h2 className="font-semibold">
+            <span className="text-sky-500 font-medium font-mono">1. </span>
             My Experience
           </h2>
           <Tabs.Root
@@ -240,16 +237,14 @@ export default function Home({ workExperience, projects }) {
       <section className="py-20" id="projects">
         <div className="container">
           <div className="flex items-center gap-x-10 mb-14">
-            <h2 className="text-4xl font-semibold whitespace-nowrap">
-              <span className="text-sky-500 text-3xl font-medium font-mono">
-                2.{" "}
-              </span>
+            <h2 className="font-semibold whitespace-nowrap">
+              <span className="text-sky-500 font-medium font-mono">2. </span>
               My Projects
             </h2>
             <div className="h-px bg-sky-200/25 w-full" />
           </div>
 
-          <div className="px-10 grid md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-10">
+          <div className="px-0 sm:px-10 md:px-0 lg:px-10 grid md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-10">
             {projects.map((project, i) => (
               <div
                 className="border border-slate-600/50 p-5 shadow-lg rounded-lg"
@@ -304,10 +299,8 @@ export default function Home({ workExperience, projects }) {
 
       <section className="py-20" id="contact">
         <div className="container text-center">
-          <h2 className="text-4xl mb-4 font-semibold">
-            <span className="text-sky-500 text-3xl font-medium font-mono">
-              3.{" "}
-            </span>
+          <h2 className="mb-5 font-semibold">
+            <span className="text-sky-500 font-medium font-mono">3. </span>
             Get in Touch
           </h2>
           <div className="max-w-lg mx-auto">
@@ -317,7 +310,7 @@ export default function Home({ workExperience, projects }) {
             </p>
           </div>
           <a href="mailto:raheelj2004@gmail.com">
-            <button className="px-5 py-2 mt-3 transition rounded-md text-lg border-sky-400 text-sky-400 border hover:bg-sky-900/25 font-sans">
+            <button className="px-5 py-2 mt-3 transition rounded-md text-md lg:text-lg border-sky-400 text-sky-400 border hover:bg-sky-900/25 font-sans">
               Mail Me
             </button>
           </a>
