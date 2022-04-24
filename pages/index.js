@@ -107,9 +107,6 @@ export default function Home({ workExperience, projects }) {
                 <Image
                   alt="Self Portrait"
                   className="rounded-xl"
-                  // objectFit="contain"
-                  // objectPosition="right"
-                  // layout="fill"
                   width={336}
                   height={420}
                   layout="responsive"
@@ -125,11 +122,20 @@ export default function Home({ workExperience, projects }) {
                 About me
               </h2>
               <p className="my-8 text-slate-400 leading-relaxed">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dui a
-                sollicitudin condimentum arcu sit facilisis quis ac sem. Nunc
-                massa egestas turpis fusce enim. Fames sagittis non id eget
-                tortor. At in donec sagittis, in nulla leo praesent morbi
-                auctor. Dictumst egestas ac{" "}
+                Welcome! My name is Raheel, and I enjoy creating modern web
+                applications. I originally started as a Python developer back in
+                2020 but have since grown to work with various tech stacks.
+                Today, I use Javascript, React.js, and Python to build
+                applications for the future (currently working at{" "}
+                <a
+                  href="https://skyit.services/"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="underline decoration-sky-500 underline-offset-1 text-slate-300 hover:text-sky-500 font-medium"
+                >
+                  SkyIT
+                </a>
+                ).
               </p>
               <p className="font-mono mb-3">Some technologies I use are:</p>
               <div className="flex gap-x-10 font-mono text-sky-400 my-2">
@@ -287,7 +293,7 @@ export default function Home({ workExperience, projects }) {
                 <p className="text-slate-400 font-light leading-relaxed mb-5">
                   {project.description}
                 </p>
-                <p className="text-sm text-sky-300 font-mono">
+                <p className="text-sm text-sky-300/80 font-mono">
                   {project.technologies.join(" · ")}
                 </p>
               </div>
@@ -306,14 +312,15 @@ export default function Home({ workExperience, projects }) {
           </h2>
           <div className="max-w-lg mx-auto">
             <p className="text-slate-400 font-light leading-relaxed mb-5">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Habitasse
-              ac pellentesque sollicitudin leo, quam faucibus morbi non mi. Sit
-              mattis.
+              Want to give feedback? Have a question that I can help you with?
+              Do you just wanna talk? My door is always open.
             </p>
           </div>
-          <button className="px-5 py-2 mt-3 transition rounded-md text-lg border-sky-400 text-sky-400 border hover:bg-sky-900/25 font-sans">
-            Mail Me
-          </button>
+          <a href="mailto:raheelj2004@gmail.com">
+            <button className="px-5 py-2 mt-3 transition rounded-md text-lg border-sky-400 text-sky-400 border hover:bg-sky-900/25 font-sans">
+              Mail Me
+            </button>
+          </a>
         </div>
       </section>
     </main>
