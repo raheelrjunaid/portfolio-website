@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const navLinks = ["About", "Experience", "Projects", "Contact"];
@@ -32,9 +33,13 @@ export default function Header() {
           {navLinks.map((content, i) => (
             <NavLink content={content} index={i} key={i} />
           ))}
-          <button className="px-4 py-2 transition rounded-md border-sky-400 text-sky-400 border hover:bg-sky-900/25 font-sans">
-            Resume
-          </button>
+          <Link href="/resume.pdf">
+            <a>
+              <button className="px-4 py-2 transition rounded-md border-sky-400 text-sky-400 border hover:bg-sky-900/25 font-sans">
+                Resume
+              </button>
+            </a>
+          </Link>
         </div>
       </div>
     </nav>
