@@ -40,7 +40,7 @@ export async function getStaticProps() {
       },
     };
   } catch (error) {
-    console.error(error.response?.data.error || error);
+    console.error(error.response?.data.error.name, error);
     return { notFound: true };
   }
 }
