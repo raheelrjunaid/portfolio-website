@@ -5,7 +5,7 @@ const nextConfig = {
 
 module.exports = {
   images: {
-    domains: ["localhost", "portfolio-webs-backend.herokuapp.com"],
+    domains: ["images.ctfassets.net"],
   },
   nextConfig,
 };

@@ -6,51 +6,41 @@ import * as Tabs from "@radix-ui/react-tabs";
 import { useState, useRef } from "react";
 import { animated, useTransition } from "react-spring";
 import axios from "axios";
+import { createClient } from "contentful";
 
 export async function getStaticProps() {
   try {
-    const headers = {
-      headers: { Authorization: `Bearer ${process.env.API_TOKEN}` },
-    };
+    const client = createClient({
+      space: process.env.CONTENTFUL_SPACE_ID,
+      accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
+    });
 
-    let res = await axios.get(
-      `${process.env.BASE_URL}/api/homepage?populate=*`,
-      headers
-    );
-    const homePageData = res.data.data.attributes;
+    let res = await client.getEntries({
+      content_type: "project",
+      order: "-fields.dateCompleted",
+    });
+    const projects = res.items;
 
-    res = await axios.get(
-      `${process.env.BASE_URL}/api/work-experiences?sort=startDate:desc`,
-      headers
-    );
-    const workExperiences = res.data.data;
-
-    res = await axios.get(
-      `${process.env.BASE_URL}/api/projects?populate=*`,
-      headers
-    );
-    const projects = res.data.data;
+    res = await client.getEntries({
+      content_type: "workExperience",
+      order: "-fields.startingDate",
+    });
+    const workExperience = res.items;
 
     return {
       props: {
-        homePageData,
-        workExperiences,
+        workExperience,
         projects,
-        BASE_URL: process.env.BASE_URL,
       },
+      revalidate: 10,
     };
   } catch (error) {
-    console.error(error.response?.data.error.name, error.response?.config.url);
+    console.error(error);
     return { notFound: true };
   }
 }
 
-export default function Home({
-  homePageData,
-  workExperiences,
-  projects,
-  BASE_URL,
-}) {
+export default function Home({ workExperience, projects }) {
   const [activeTab, setActiveTab] = useState(0);
   const previousTab = useRef(0);
   const tabTransitions = useTransition(activeTab, {
@@ -87,6 +77,15 @@ export default function Home({
     },
   ];
 
+  const technologies = [
+    "JavaScript",
+    "Next.js",
+    "Node.js",
+    "React.js",
+    "Firebase",
+    "Python",
+  ];
+
   return (
     <main>
       <section className="h-screen pt-20 flex items-center">
@@ -98,7 +97,9 @@ export default function Home({
             <span className="text-slate-200">I build online experiences.</span>
           </h1>
           <p className="text-slate-400 leading-relaxed mt-5 mb-10 w-100 md:w-2/3 lg:w-1/2">
-            {homePageData.mainDescription}
+            I&apos;m a software engineer that empowers users by developing
+            applications. My apps/websites use full-stack web technologies to
+            enhance the user experience with minimal pain points.
           </p>
           <div className="flex gap-x-7 items-center">
             <a href="#projects">
@@ -142,18 +143,29 @@ export default function Home({
                 About me
               </h2>
               <p className="my-8 text-slate-400 leading-relaxed">
-                {homePageData.aboutDescription}
+                Welcome! My name is Raheel, and I enjoy creating modern web
+                applications. I originally started as a Python developer back in
+                2020 but have since grown to work with various tech stacks.
+                Today, I use Javascript, React.js, and Python to build
+                applications for the future (currently working at{" "}
+                <a
+                  href="#experience"
+                  className="underline text-white hover:text-sky-500 decoration-sky-500 text-md"
+                >
+                  SkyIT
+                </a>
+                ).
               </p>
               <p className="font-mono mb-3">Some technologies I use are:</p>
               <div className="flex gap-x-10 font-mono text-sky-400 my-2">
                 <ul className="list-disc list-inside">
-                  {homePageData.technologies.slice(0, 3).map(({ id, name }) => (
-                    <li key={id}>{name}</li>
+                  {technologies.slice(0, 3).map((tech, i) => (
+                    <li key={i}>{tech}</li>
                   ))}
                 </ul>
                 <ul className="list-disc list-inside">
-                  {homePageData.technologies.slice(3).map(({ id, name }, i) => (
-                    <li key={id}>{name}</li>
+                  {technologies.slice(3).map((tech, i) => (
+                    <li key={i}>{tech}</li>
                   ))}
                 </ul>
               </div>
@@ -204,36 +216,36 @@ export default function Home({
           >
             <div className="relative w-min mx-auto mb-10">
               <Tabs.List className="whitespace-nowrap">
-                {workExperiences.map(({ id, attributes }, index) => (
+                {workExperience.map(({ sys, fields }, index) => (
                   <Tabs.Trigger
                     value={index}
-                    key={id}
+                    key={sys.id}
                     className={`transition py-3 w-20 ${
                       activeTab != index && "opacity-75"
                     }`}
                   >
-                    {attributes.company}
+                    {fields.companyName}
                   </Tabs.Trigger>
                 ))}
               </Tabs.List>
               <animated.div
                 className="bg-white transition-all rounded h-0.5 w-20 absolute"
                 style={{
-                  left: `${(activeTab / workExperiences.length) * 100}%`,
+                  left: `${(activeTab / workExperience.length) * 100}%`,
                 }}
               />
             </div>
-            {workExperiences.length > 0 &&
+            {workExperience.length > 0 &&
               tabTransitions((props, tabIndex) => {
-                const { company, title, excerpt } =
-                  workExperiences[tabIndex].attributes;
+                const { companyName, jobTitle, excerpt } =
+                  workExperience[tabIndex].fields;
                 return (
                   <animated.div style={props}>
                     <h3 className="text-2xl mb-2 font-semibold text-slate-100">
-                      {title}
+                      {jobTitle}
                     </h3>
                     <p className="text-sky-400 font-mono text-sm mb-5">
-                      {company}
+                      {companyName}
                     </p>
                     <p className="text-slate-300 leading-relaxed">{excerpt}</p>
                   </animated.div>
@@ -254,15 +266,15 @@ export default function Home({
           </div>
 
           <div className="px-0 sm:px-10 md:px-0 lg:px-10 grid md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-10">
-            {projects.map(({ id, attributes }) => (
+            {projects.map(({ sys, fields }) => (
               <div
                 className="border border-slate-600/50 p-5 shadow-lg rounded-lg"
-                key={id}
+                key={sys.id}
               >
                 <div className="relative aspect-video mb-5">
                   <Image
-                    src={`${BASE_URL}${attributes.image.data.attributes.url}`}
-                    alt="Chat App"
+                    src={`https:${fields.image.fields.file.url}`}
+                    alt={fields.title}
                     objectFit="cover"
                     objectPosition="50% 50%"
                     className="rounded-md"
@@ -271,22 +283,18 @@ export default function Home({
                 </div>
                 <div className="flex justify-between items-center mb-3">
                   <h3 className="text-2xl font-semibold text-slate-100">
-                    {attributes.title}
+                    {fields.title}
                   </h3>
                   <div className="flex gap-x-3 text-slate-600 text-2xl">
-                    {attributes.demoUrl && (
-                      <a
-                        target="_blank"
-                        href={attributes.demoUrl}
-                        rel="noreferrer"
-                      >
+                    {fields.demoUrl && (
+                      <a target="_blank" href={fields.demoUrl} rel="noreferrer">
                         <FiExternalLink className="hover:text-slate-500 " />
                       </a>
                     )}
-                    {attributes.sourceUrl && (
+                    {fields.sourceUrl && (
                       <a
                         target="_blank"
-                        href={attributes.sourceUrl}
+                        href={fields.sourceUrl}
                         rel="noreferrer"
                       >
                         <FaGithub className="hover:text-slate-500 " />
@@ -295,10 +303,10 @@ export default function Home({
                   </div>
                 </div>
                 <p className="text-slate-400 font-light leading-relaxed mb-5">
-                  {attributes.description}
+                  {fields.description}
                 </p>
                 <p className="text-sm text-sky-300/80 font-mono">
-                  {attributes.technologies?.map(({ name }) => name).join(" · ")}
+                  {fields.technologies?.join(" · ")}
                 </p>
               </div>
             ))}
