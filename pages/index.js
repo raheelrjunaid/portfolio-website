@@ -152,8 +152,8 @@ export default function Home({
                   ))}
                 </ul>
                 <ul className="list-disc list-inside">
-                  {homePageData.technologies.slice(3).map((tech, i) => (
-                    <li key={i}>{tech}</li>
+                  {homePageData.technologies.slice(3).map(({ id, name }, i) => (
+                    <li key={id}>{name}</li>
                   ))}
                 </ul>
               </div>
