@@ -40,7 +40,7 @@ export async function getStaticProps() {
       },
     };
   } catch (error) {
-    console.error(error.response?.data.error.name, error);
+    console.error(error.response?.data.error.name, error.response?.config.url);
     return { notFound: true };
   }
 }
@@ -71,15 +71,6 @@ export default function Home({
     },
     keys: null,
   });
-
-  const technologies = [
-    "JavaScript",
-    "React",
-    "Node.js",
-    "Next.js",
-    "Firebase",
-    "Python",
-  ];
 
   const socials = [
     {
@@ -232,21 +223,22 @@ export default function Home({
                 }}
               />
             </div>
-            {tabTransitions((props, tabIndex) => {
-              const { company, title, excerpt } =
-                workExperiences[tabIndex].attributes;
-              return (
-                <animated.div style={props}>
-                  <h3 className="text-2xl mb-2 font-semibold text-slate-100">
-                    {title}
-                  </h3>
-                  <p className="text-sky-400 font-mono text-sm mb-5">
-                    {company}
-                  </p>
-                  <p className="text-slate-300 leading-relaxed">{excerpt}</p>
-                </animated.div>
-              );
-            })}
+            {workExperiences.length > 0 &&
+              tabTransitions((props, tabIndex) => {
+                const { company, title, excerpt } =
+                  workExperiences[tabIndex].attributes;
+                return (
+                  <animated.div style={props}>
+                    <h3 className="text-2xl mb-2 font-semibold text-slate-100">
+                      {title}
+                    </h3>
+                    <p className="text-sky-400 font-mono text-sm mb-5">
+                      {company}
+                    </p>
+                    <p className="text-slate-300 leading-relaxed">{excerpt}</p>
+                  </animated.div>
+                );
+              })}
           </Tabs.Root>
         </div>
       </section>
