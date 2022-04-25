@@ -6,8 +6,6 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "prebuild": "echo 'Building Sanity to public/studio' && cd studio && yarn && npx @sanity/cli build ../public/studio -y && echo 'Done'",
-    "sanity": "cd studio && sanity start",
     "lint": "next lint"
   },
   "dependencies": {
