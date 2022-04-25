@@ -3,6 +3,9 @@
 @tailwind utilities;
 
 @layer base {
+  body {
+    @apply bg-[#000C13]
+  }
   h1 {
     @apply text-4xl sm:text-5xl lg:text-6xl;
   }
