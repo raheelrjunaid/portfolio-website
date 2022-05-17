@@ -5,8 +5,8 @@ import { FiExternalLink } from "react-icons/fi";
 import * as Tabs from "@radix-ui/react-tabs";
 import { useState, useRef } from "react";
 import { animated, useTransition } from "react-spring";
-import axios from "axios";
 import { createClient } from "contentful";
+import Marquee from "react-fast-marquee";
 
 export async function getStaticProps() {
   try {
@@ -268,7 +268,7 @@ export default function Home({ workExperience, projects }) {
           <div className="px-0 sm:px-10 md:px-0 lg:px-10 grid md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-10">
             {projects.map(({ sys, fields }) => (
               <div
-                className="border border-slate-600/50 p-5 shadow-lg rounded-lg"
+                className="border border-slate-600/50 p-5 shadow-lg rounded-lg relative pb-14"
                 key={sys.id}
               >
                 <div className="relative aspect-video mb-5">
@@ -282,9 +282,19 @@ export default function Home({ workExperience, projects }) {
                   />
                 </div>
                 <div className="flex justify-between items-center mb-3">
-                  <h3 className="text-2xl font-semibold text-slate-100">
-                    {fields.title}
-                  </h3>
+                  <div>
+                    <h3 className="text-2xl font-semibold text-slate-100">
+                      {fields.title}
+                    </h3>
+                    <p className="text-sm text-slate-400">
+                      {new Date(
+                        Date.parse(fields.dateCompleted)
+                      ).toLocaleDateString("en-US", {
+                        month: "long",
+                        year: "numeric",
+                      })}
+                    </p>
+                  </div>
                   <div className="flex gap-x-3 text-slate-600 text-2xl">
                     {fields.demoUrl && (
                       <a target="_blank" href={fields.demoUrl} rel="noreferrer">
@@ -302,12 +312,21 @@ export default function Home({ workExperience, projects }) {
                     )}
                   </div>
                 </div>
-                <p className="text-slate-400 font-light leading-relaxed mb-5">
+                <p className="text-slate-400 font-light leading-relaxed">
                   {fields.description}
                 </p>
-                <p className="text-sm text-sky-300/80 font-mono">
-                  {fields.technologies?.join(" · ")}
-                </p>
+                <div className="absolute  bottom-5 right-5 left-5">
+                  <Marquee
+                    className="text-sm text-sky-300/80 font-mono"
+                    gradientColor={[0, 12, 19]}
+                    gradientWidth={20}
+                    pauseOnHover
+                  >
+                    {/* <p className="text-sm text-sky-300/80 font-mono absolute bottom-5 right-5 left-5 whitespace-nowrap"> */}
+                    {fields.technologies?.join(" · ")} ·&nbsp;
+                    {/* </p> */}
+                  </Marquee>
+                </div>
               </div>
             ))}
           </div>
