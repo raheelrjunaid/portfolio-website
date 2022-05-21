@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { HiOutlineExternalLink } from "react-icons/hi";
 import { useEffect, useState } from "react";
 
 const navLinks = ["About", "Experience", "Projects", "Contact"];
@@ -35,8 +36,11 @@ export default function Header() {
           ))}
           <Link href="/resume.pdf">
             <a>
-              <button className="px-4 py-2 transition rounded-md border-sky-400 text-sky-400 border hover:bg-sky-900/25 font-sans">
+              <button className="px-4 py-2 transition-all rounded-md border-sky-400 text-sky-400 border hover:bg-sky-900/25 font-sans relative group hover:pr-7">
                 Resume
+                <i className="absolute opacity-0 inset-y-0 -right-2 flex items-center group-hover:right-2 group-hover:opacity-100 transition-all">
+                  <HiOutlineExternalLink />
+                </i>
               </button>
             </a>
           </Link>
