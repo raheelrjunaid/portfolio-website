@@ -43,6 +43,15 @@ function MyApp({ Component, pageProps }) {
       <Head>
         <title>Raheel Junaid</title>
         <meta
+          name="description"
+          content="I'm a software engineer that empowers users by developing applications. My apps/websites use full-stack web technologies to enhance the user experience with minimal pain points."
+        />
+        <meta
+          name="keywords"
+          content="Software Developer, Web Developer, Portfolio"
+        />
+        <meta name="author" content="Raheel Junaid" />
+        <meta
           name="viewport"
           content="minimum-scale=1, initial-scale=1, width=device-width"
         />
